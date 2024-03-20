@@ -50,18 +50,33 @@ def run():
     """
     )
 
-def img():
-    dir = r'D:\python_code\web-fabu\src\img\logo.png'
-    image = Image.open(dir)
+def shuru_and_shuchu():
+    if 'image' not in st.session_state:
+        st.session_state['image']=None
+    loadfile = st.file_uploader('图片')
+    if loadfile is not None:
+        st.session_state['image'] = loadfile
     # 将图像转换为 NumPy 数组
-    logo_image = np.array(image)
-    st.image(logo_image)
+    if st.session_state['image']:
+        type = st.session_state['image']
+        # print(imgnp.shape)
+        image = Image.open(type)
+        # 将图像转换为 numpy 数组
+        img_array = np.array(image)
+        # print(type)
+        # logo_image = np.array(st.session_state['image'])
+        st.image(img_array)
+
+
+
 # '''
 # 测试1 目录里的函数文件能不能调用  成功了
-# 测试2 目录里的文件能不能调用
+# 测试2 目录里的文件能不能调用     用相对路经失败，绝对路经在本地能够运行，在部署后同样不可以
 # 测试3 保存文件能不能用
 # 测试4 读取文件能不能用
 # '''
 if __name__ == "__main__":
     run()
-    img()
+    shuru_and_shuchu()
+    st.image('images/logo.png')
+    #st.markdown("[![Click me](Hello/static/logo.jpg)](https://streamlit.io)")
