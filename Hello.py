@@ -14,7 +14,7 @@
 
 import streamlit as st
 from streamlit.logger import get_logger
-
+from test import text_write
 LOGGER = get_logger(__name__)
 
 
@@ -25,6 +25,7 @@ def run():
     )
 
     st.write("# Welcome to Streamlit! 👋")
+    text_write()
 
     st.sidebar.success("Select a demo above.")
 
@@ -46,6 +47,6 @@ def run():
     """
     )
 
-
+#测试1 目录里的函数文件能不能调用
 if __name__ == "__main__":
     run()
