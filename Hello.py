@@ -15,6 +15,9 @@
 import streamlit as st
 from streamlit.logger import get_logger
 from test import text_write
+from PIL import Image
+import numpy as np
+import os
 LOGGER = get_logger(__name__)
 
 
@@ -25,8 +28,8 @@ def run():
     )
 
     st.write("# Welcome to Streamlit! 👋")
-    text_write()
 
+    text_write()
     st.sidebar.success("Select a demo above.")
 
     st.markdown(
@@ -47,6 +50,18 @@ def run():
     """
     )
 
-#测试1 目录里的函数文件能不能调用
+def img():
+    dir = r'D:\python_code\web-fabu\src\img\logo.png'
+    image = Image.open(dir)
+    # 将图像转换为 NumPy 数组
+    logo_image = np.array(image)
+    st.image(logo_image)
+# '''
+# 测试1 目录里的函数文件能不能调用  成功了
+# 测试2 目录里的文件能不能调用
+# 测试3 保存文件能不能用
+# 测试4 读取文件能不能用
+# '''
 if __name__ == "__main__":
     run()
+    img()
