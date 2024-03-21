@@ -137,7 +137,8 @@ if st.session_state['file_add_flag']:#插入文件程序 按钮 开始
 if st.session_state['jincheng']>=1:
     with c11_container:
         if st.session_state['images']:
-            util.chart1(st.session_state['images'])
+            imgs,caps = util.chart1(st.session_state['images'])
+            st.image(imgs, caption=caps, width=200)
         else:
             st.markdown('请先添加文件')
 if st.session_state['jincheng']>=2:
