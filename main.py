@@ -2,6 +2,7 @@ import os.path
 import streamlit as st
 import numpy as np
 from PIL import Image
+import util
 ###########################################################
 page_title = "颗粒识别分析系统"
 page_icon="🧊",
@@ -19,8 +20,12 @@ if 'file_change_flag' not in st.session_state:
     st.session_state['file_change_flag'] = 0
 if 'file_add_flag' not in st.session_state:
     st.session_state['file_add_flag']=False
+# if 'file_delete_flag' not in st.session_state:
+#     st.session_state['file_delete_flag'] = False
 if 'loged' not in st.session_state:
     st.session_state['loged'] = False
+if 'images' not in st.session_state:
+    st.session_state['images'] = []
 st.set_page_config(
     page_title="颗粒识别分析系统",
     page_icon="🧊",
@@ -32,9 +37,9 @@ st.set_page_config(
         'About': "# This is a header. This is an *extremely* cool app!"
     }
 )
-if not st.session_state['loged']:
-    with st.sidebar:
-        st.markdown('尚未登陆的函数')
+# if not st.session_state['loged']:
+#     with st.sidebar:
+#         st.markdown('尚未登陆的函数')
 #布局部分------------------------------------------------------------------
 ##头目布局
 title_col1,title_col2,buttons = st.columns((0.4,0.2,0.6),gap="small")
@@ -89,10 +94,18 @@ with file_container1_1:
         st.session_state['file_add_flag'] = True
 with file_container1_2:
     if st.button('删除图片'):
-        st.markdown('删除函数')
+        st.session_state['images'] = []
+        st.session_state['jincheng']=0
+        # st.session_state['file_delete_flag'] = True
 with file_container:
     st.markdown('***当前文件：***')
-    st.write('- 暂无图片，请添加')
+    if not st.session_state['images']:
+        print('当前没有图片',st.session_state['images'])
+        st.write('- 暂无图片，请添加')
+    else:
+        print('当前有图片',st.session_state['images'])
+        strings = util.get_images_name_strings(st.session_state['images'])
+        st.markdown(strings)
 ###foot
 with foot_col1:
     st.write(' ')
@@ -104,14 +117,29 @@ with foot_col3:
 #根据state逻辑实施
 ##头部静止无变化
 ##filebar
-if st.session_state['file_add_flag']:
+if st.session_state['file_add_flag']:#插入文件程序 按钮 开始
     with file_container:
-        image_file = st.file_uploader("插入识别图片：", type=["jpg", "jpeg", "png"],
-                                      label_visibility="collapsed")
+        image_file = st.file_uploader("插入识别图片：", type=["jpg", "jpeg", "png"],label_visibility="collapsed")
+        if image_file is not None:
+            st.session_state['images'].append(image_file)
+            st.session_state['file_add_flag'] = False   #插入文件程序 按钮 结束
+            st.session_state['jincheng'] = 0
+            st.rerun()
+
+# if st.session_state['file_delete_flag']:
+#     print('删除函数中，deleteflag={},images={},add_flag={}'.format(st.session_state['file_delete_flag'],st.session_state['images'],st.session_state['file_add_flag']))
+#     st.session_state['images'] = []
+#     st.session_state['file-delete_flag'] = False
+#     print('删除函数结束，deleteflag=False,images={},add_flag={}'.format(st.session_state['images'],
+#                 st.session_state['file_add_flag']))
+
 ##contents
 if st.session_state['jincheng']>=1:
     with c11_container:
-        st.markdown('阶段一')
+        if st.session_state['images']:
+            util.chart1(st.session_state['images'])
+        else:
+            st.markdown('请先添加文件')
 if st.session_state['jincheng']>=2:
     with c12_container:
         st.markdown('阶段二')
