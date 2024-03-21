@@ -72,11 +72,13 @@ def shuru_and_shuchu():
 # '''
 # 测试1 目录里的函数文件能不能调用  成功了
 # 测试2 目录里的文件能不能调用     用相对路经失败，绝对路经在本地能够运行，在部署后同样不可以
-# 测试3 保存文件能不能用
+# 测试3 保存文件能不能用     显然不能通过路径进行操作
 # 测试4 读取文件能不能用
+# 目前需要考虑的是，静态文件怎么导入
+#暂时先跳过静态文件，把逻辑框架搭好
 # '''
 if __name__ == "__main__":
     run()
     shuru_and_shuchu()
     st.image('images/logo.png')
-    #st.markdown("[![Click me](Hello/static/logo.jpg)](https://streamlit.io)")
+    st.markdown("[![Click me](Hello/static/logo.jpg)](https://streamlit.io)")
