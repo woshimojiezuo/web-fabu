@@ -1,6 +1,7 @@
-altair
-numpy
-pandas
-pydeck
-streamlit
-pymysql
+mysql_connector_repackaged==0.3.1
+numpy==1.26.4
+Pillow==10.1.0
+Pillow==10.2.0
+streamlit==1.32.2
+~treamlit==1.29.0
+~treamlit==1.32.2
