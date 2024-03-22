@@ -69,6 +69,7 @@ foot_col1,foot_col2,foot_col3 = st.columns((1,0.5,1),gap="small")
 # state逻辑 或者静态的内容
 ## 头部
 with title_col1:
+    st.markdown("[![Click me](app/static/logo.jpg)]")
     st.markdown('这是一张logo图片')
     st.markdown('# **粒子图像识别系统**')
     # st.image(logo_image,use_column_width="always")
