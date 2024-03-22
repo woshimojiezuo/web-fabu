@@ -2,6 +2,7 @@ import os.path
 import streamlit as st
 import numpy as np
 from PIL import Image
+from connet.get import get_img
 import util
 ###########################################################
 page_title = "颗粒识别分析系统"
@@ -69,12 +70,11 @@ foot_col1,foot_col2,foot_col3 = st.columns((1,0.5,1),gap="small")
 # state逻辑 或者静态的内容
 ## 头部
 with title_col1:
-    st.markdown("[![Click me](app/static/logo.jpg)]")
-    st.markdown('这是一张logo图片')
-    st.markdown('# **粒子图像识别系统**')
-    # st.image(logo_image,use_column_width="always")
-with title_col2:
-    st.markdown(' ')
+    logoimg = get_img('logo_txt')
+    st.image(logoimg,use_column_width=True)
+# with title_col2:
+#     st.markdown('# **粒子图像识别系统**')
+    # st.markdown(' ')
     # st.header('粒子图像识别系统')
 with button_col1:
     if st.button('图 片 载 入'):
