@@ -69,11 +69,19 @@ foot_col1,foot_col2,foot_col3 = st.columns((1,0.5,1),gap="small")
 # state逻辑 或者静态的内容
 ## 头部
 with title_col1:
-    st.markdown('这是一张logo图片')
-    st.markdown('# **粒子图像识别系统**')
+    st.markdown(
+        '<img src="./app/static/image.jpg" height="100" style="border: 5px solid orange">',
+        unsafe_allow_html=True,
+    )
+    # img = '![](./app/static/image.jpg)'
+    # st.image(img)
+    # st.image(img,use_column_width=True)
+    # st.markdown('![Click me](./app/static/image.jpg)')
+    # st.markdown('# **粒子图像识别系统**')
     # st.image(logo_image,use_column_width="always")
 with title_col2:
-    st.markdown(' ')
+    st.markdown('# **粒子图像识别系统**')
+    # st.markdown(' ')
     # st.header('粒子图像识别系统')
 with button_col1:
     if st.button('图 片 载 入'):

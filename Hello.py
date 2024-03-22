@@ -80,5 +80,4 @@ def shuru_and_shuchu():
 if __name__ == "__main__":
     run()
     shuru_and_shuchu()
-    st.image('images/logo.png')
-    st.markdown("[![Click me](Hello/static/logo.jpg)](https://streamlit.io)")
+    st.markdown("[![Click me](./app/static/image.jpg)](https://streamlit.io)")
