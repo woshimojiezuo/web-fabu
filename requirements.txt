@@ -8,5 +8,3 @@ py-cpuinfo
 torch
 torchvision
 opencv-python
-random
-math
