@@ -7,7 +7,6 @@ mysql-connector
 py-cpuinfo
 torch
 torchvision
-opencv-python
 PyOpenGL
 PyOpenGL_accelerate
 opencv-python-headless
