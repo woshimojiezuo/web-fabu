@@ -4,6 +4,7 @@ import numpy as np
 from PIL import Image
 from connet.get import get_img
 import util
+from model2.predict import houduan_msba
 ###########################################################
 page_title = "颗粒识别分析系统"
 page_icon="🧊",
@@ -127,13 +128,6 @@ if st.session_state['file_add_flag']:#插入文件程序 按钮 开始
             st.session_state['jincheng'] = 0
             st.rerun()
 
-# if st.session_state['file_delete_flag']:
-#     print('删除函数中，deleteflag={},images={},add_flag={}'.format(st.session_state['file_delete_flag'],st.session_state['images'],st.session_state['file_add_flag']))
-#     st.session_state['images'] = []
-#     st.session_state['file-delete_flag'] = False
-#     print('删除函数结束，deleteflag=False,images={},add_flag={}'.format(st.session_state['images'],
-#                 st.session_state['file_add_flag']))
-
 ##contents
 if st.session_state['jincheng']>=1:
     with c11_container:
@@ -144,12 +138,21 @@ if st.session_state['jincheng']>=1:
             st.markdown('请先添加文件')
 if st.session_state['jincheng']>=2:
     with c12_container:
-        st.markdown('阶段二')
+        datas,colorimgs,caps = houduan_msba(st.session_state['images'])
+        # st.session_state['datas'] = datas
+        # st.session_state['colorimgs'] = colorimgs
+        st.image(colorimgs,caption=caps, width=200)
+        # st.markdown('阶段二')
 if st.session_state['jincheng']>=3:
     with c21_container:
-        st.markdown('阶段三')
+        hist_datas = util.chart3(datas)
+        for hist_data in hist_datas:
+            st.bar_chart(hist_data)
     with c22_container:
-        st.markdown('阶段三')
+        line_datas = util.chart4(datas)
+        for line_data in line_datas:
+            st.line_chart(line_data)
+        # st.markdown('阶段三')
 if st.session_state['jincheng']>=4:
     st.write('系统退出')
 

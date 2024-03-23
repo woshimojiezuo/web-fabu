@@ -4,4 +4,9 @@ Pillow==10.2.0
 streamlit==1.32.2
 PyMysql
 mysql-connector
-
+py-cpuinfo
+torch
+torchvision
+opencv-python
+random
+math
