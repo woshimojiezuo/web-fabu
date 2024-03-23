@@ -10,3 +10,4 @@ torchvision
 opencv-python
 PyOpenGL
 PyOpenGL_accelerate
+opencv-python-headless
