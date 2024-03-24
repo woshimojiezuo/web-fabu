@@ -5,7 +5,6 @@ from PIL import Image
 from connet.get import get_img
 import util
 from model2.predict import houduan_msba
-import streamlit as st
 import mysql.connector
 from mysql.connector import Error
 from auth.siderbar import log_part
@@ -70,8 +69,7 @@ def main():
             st.session_state['jincheng'] = 3
     with button_col4:
         if st.button('系 统 退 出'):
-            st.session_state['jincheng'] = 0
-            st.session_state['images'] = []
+            st.session_state['jincheng'] = 4
 
     ###filebar
     with file_container1_1:
@@ -137,7 +135,8 @@ def main():
                 st.line_chart(line_data)
             # st.markdown('阶段三')
     if st.session_state['jincheng'] >= 4:
-        st.write('系统退出')
+        st.session_state.clear()
+        st.rerun()
 
 st.set_page_config(
         page_title="颗粒识别分析系统",

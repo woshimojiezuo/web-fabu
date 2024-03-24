@@ -15,6 +15,7 @@ import io
 def houduan_msba(stateupload):
     cuda = torch.cuda.is_available()
     #模型参数加载中
+    print('加载模型中')
     with st.spinner('加载模型训练参数中，第一次加载时间较长'):
         pt = 'msba_pkl'
         origindata = pickle.loads(msba_cabshu)
@@ -39,6 +40,7 @@ def houduan_msba(stateupload):
     datas = []
     colorimgs=[]
     names = []
+    print('预测中')
     for step, (test, name) in enumerate(test_loader):
         # 预测
         pred_tensor1, pred_tensor2 = model(test)
@@ -47,6 +49,7 @@ def houduan_msba(stateupload):
         datas.append(data)
         colorimgs.append(colorimg)
         names.append(name)
+    print('预测结束，返回数据')
     return datas,colorimgs,names
 if __name__=='__main__':
     houduan_msba()
