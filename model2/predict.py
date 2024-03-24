@@ -8,13 +8,19 @@ import json
 from .post_process import *
 from connet.get import get_pt
 import streamlit as st
-
+from static.src.msba_cabshu import msba_cabshu
+import pickle
+import io
 @st.cache_data
 def houduan_msba(stateupload):
     cuda = torch.cuda.is_available()
     #模型参数加载中
-    pt = 'msba_pkl'
-    pt_data = get_pt(pt)
+    with st.spinner('加载模型训练参数中，第一次加载时间较长'):
+        pt = 'msba_pkl'
+        origindata = pickle.loads(msba_cabshu)
+        pt_data = io.BytesIO(origindata)
+        # a =  torch.load(pt_data, map_location=torch.device('cpu'))
+        # pt_data2 = get_pt(pt)
     if cuda:
         model = Msba().cuda()
         model.load_state_dict(torch.load(r'D:\python_code\web-fabu\model2\model4best.pkl',))

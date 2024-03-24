@@ -1,4 +1,4 @@
-from .layers import *
+from model2.layers import *
 
 
 class Msba(nn.Module):

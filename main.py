@@ -89,6 +89,7 @@ with button_col3:
 with button_col4:
     if st.button('系 统 退 出'):
         st.session_state['jincheng'] = 0
+        st.session_state['images'] = []
 
 ###filebar
 with file_container1_1:
@@ -147,7 +148,7 @@ if st.session_state['jincheng']>=3:
     with c21_container:
         hist_datas = util.chart3(datas)
         for hist_data in hist_datas:
-            st.bar_chart(hist_data)
+            st.bar_chart(hist_data, x='粒径区间', y='数量', color=None, width=300, height=200, use_container_width=False)
     with c22_container:
         line_datas = util.chart4(datas)
         for line_data in line_datas:
