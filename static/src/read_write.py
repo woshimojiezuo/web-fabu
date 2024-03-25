@@ -4,7 +4,11 @@ import io
 import numpy as np
 def write():
     # 读取图片并转换为二进制数据
+
     image_path = r"D:\python_code\web-fabu\model\Parameter\best.pt"  # 图片路径
+    #
+    # image_path = r"C:\Users\Administrator\Desktop\wq\web-fabu\model\Parameter\best.pt"  # 图片路径
+
     with open(image_path, "rb") as file:
         binary_image_data = file.read()
 
@@ -21,5 +25,3 @@ def read():
     image = Image.open(io.BytesIO(original_image_data))
     image_np = np.array(image)
     return image_np
-
-write()
