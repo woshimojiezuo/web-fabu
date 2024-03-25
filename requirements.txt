@@ -13,3 +13,4 @@ opencv-python-headless
 matplotlib
 streamlit-echarts
 pyyaml
+tqdm
