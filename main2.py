@@ -5,6 +5,7 @@ from PIL import Image
 from connet.get import get_img
 import util
 from model2.predict import houduan_msba
+from model.dect import houduan
 import mysql.connector
 from mysql.connector import Error
 from auth.siderbar import log_part
@@ -119,23 +120,26 @@ def main():
                 st.markdown('请先添加文件')
     if st.session_state['jincheng'] >= 2:
         with c12_container:
-            datas, colorimgs, caps = houduan_msba(st.session_state['images'])
-            st.image(colorimgs, caption=caps, width=200)
+            option = st.selectbox(
+                'How would you like to be contacted?',
+                options=("Yolov8", "MSBA-Unet"),
+                index=None,
+                placeholder="请选择一种识别模型",
+            )
+            if option == "Yolov8":
+                datas,colorimgs,caps = houduan(st.session_state['images'])
+                st.image(colorimgs, caption=caps, width=200)
+            if option == "MSBA-Unet":
+                datas, colorimgs, caps = houduan_msba(st.session_state['images'])
+                st.image(colorimgs, caption=caps, width=200)
             # st.markdown('阶段二')
     if st.session_state['jincheng'] >= 3:
         with c21_container:
             for data in datas:
                 util.bar_chart(data['等效粒径'],20)
-            # hist_datas = util.chart3(datas)
-            # for hist_data in hist_datas:
-            #     st.bar_chart(hist_data)
         with c22_container:
             for data in datas:
                 util.line_chart(data['等效粒径'],20)
-            # line_datas = util.chart4(datas)
-            # for line_data in line_datas:
-            #     st.line_chart(line_data)
-            # st.markdown('阶段三')
     if st.session_state['jincheng'] >= 4:
         st.session_state.clear()
         st.rerun()

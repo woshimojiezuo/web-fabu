@@ -103,11 +103,10 @@ def bar_chart(data:list, num):
             xaxis_opts=opts.AxisOpts(name="粒径区间",
                                      name_location="middle",  # 横坐标标题居中
                                      name_gap=30,  # 与坐标轴之间的距离
-                                     type_="value"
                                      ),
             yaxis_opts=opts.AxisOpts(name="数量",
                                      name_location="middle",  # 纵坐标标题居中
-                                     name_gap=40,  # 与坐标轴之间的距离
+                                     name_gap=30,  # 与坐标轴之间的距离
                                      type_="value",
                                      ),
         )
@@ -132,11 +131,17 @@ def plot_cumulative_distribution2(data, num):
     return x.tolist(), cumulative_percentages  # 将结果转换为原生 Python 列表
 def line_chart(data:list, num):
     x_, y = plot_cumulative_distribution2(data, num)
+    formatter_js = """
+    function(params) {
+        return params.value.toFixed(2);
+    }
+    """
     b = (
         Line()
         .add_xaxis(xaxis_data=list(map(format_axis, x_)))
         .add_yaxis(
             "百分比", y,
+            # label_opts=opts.LabelOpts(formatter=JsCode(formatter_js))
         )
         .set_global_opts(
             title_opts=opts.TitleOpts(
@@ -151,7 +156,7 @@ def line_chart(data:list, num):
                                      ),
             yaxis_opts=opts.AxisOpts(name="小于某粒径的数量百分比",
                                      name_location="middle",  # 纵坐标标题居中
-                                     name_gap=40,  # 与坐标轴之间的距离
+                                     name_gap=30,  # 与坐标轴之间的距离
                                      type_="value",
                                      ),
             # label_opts=opts.LabelOpts(formatter="{value}".zfill(2))
