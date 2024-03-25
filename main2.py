@@ -120,19 +120,21 @@ def main():
     if st.session_state['jincheng'] >= 2:
         with c12_container:
             datas, colorimgs, caps = houduan_msba(st.session_state['images'])
-            # st.session_state['datas'] = datas
-            # st.session_state['colorimgs'] = colorimgs
             st.image(colorimgs, caption=caps, width=200)
             # st.markdown('阶段二')
     if st.session_state['jincheng'] >= 3:
         with c21_container:
-            hist_datas = util.chart3(datas)
-            for hist_data in hist_datas:
-                st.bar_chart(hist_data)
+            for data in datas:
+                util.bar_chart(data['等效粒径'],20)
+            # hist_datas = util.chart3(datas)
+            # for hist_data in hist_datas:
+            #     st.bar_chart(hist_data)
         with c22_container:
-            line_datas = util.chart4(datas)
-            for line_data in line_datas:
-                st.line_chart(line_data)
+            for data in datas:
+                util.line_chart(data['等效粒径'],20)
+            # line_datas = util.chart4(datas)
+            # for line_data in line_datas:
+            #     st.line_chart(line_data)
             # st.markdown('阶段三')
     if st.session_state['jincheng'] >= 4:
         st.session_state.clear()
