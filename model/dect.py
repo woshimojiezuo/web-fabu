@@ -5,10 +5,8 @@ from model import post_process
 import math
 import json
 import torch
-<<<<<<< HEAD
-=======
 from PIL import Image
->>>>>>> 2161b6c8d0570b7f629dd3cd683dd80f0f1c72e7
+
 import streamlit as st
 def jipei(dlist, name,countdot=20):
     dlist = np.array(dlist)
@@ -34,10 +32,10 @@ def houduan(state):
     colorimgs = []
     names=[]
     for load in state:
-        # image = Image.open(load)
-        # img_array = np.array(image)
-        dectfile = r'C:\Users\Administrator\Desktop\wq\web-fabu\model\0jpg_00.jpg'
-        results = model(dectfile, save=False)
+        image = Image.open(load)
+        img_array = np.array(image)
+        # dectfile = r'C:\Users\Administrator\Desktop\wq\web-fabu\model\0jpg_00.jpg'
+        results = model(img_array, save=False)
         a = post_process.Post_processing_single(results=results, show_color=True, water=True, show=False,save =False,save_dir='')
         data2 = {'周长':[],
                  '等效粒径':[],
