@@ -136,13 +136,24 @@ def line_chart(data:list, num):
         return params.value.toFixed(2);
     }
     """
-    b = (
+    w = (
         Line()
         .add_xaxis(xaxis_data=list(map(format_axis, x_)))
         .add_yaxis(
-            "百分比", y,
-            # label_opts=opts.LabelOpts(formatter=JsCode(formatter_js))
-        )
+            series_name="百分比",
+            y_axis= y,
+            label_opts=opts.LabelOpts(
+                is_show=True,
+                formatter=JsCode("""
+                                    function(params) {
+                                    var originalValue = params.value;
+                                    var formattedValue = parseFloat(originalValue[1]).toFixed(2);
+                                    return formattedValue;
+                                    }
+                                    """)
+            ),
+            )
+
         .set_global_opts(
             title_opts=opts.TitleOpts(
                 title="粒径级配累计曲线",
@@ -159,7 +170,6 @@ def line_chart(data:list, num):
                                      name_gap=30,  # 与坐标轴之间的距离
                                      type_="value",
                                      ),
-            # label_opts=opts.LabelOpts(formatter="{value}".zfill(2))
         )
     )
-    st_pyecharts(b)
+    st_pyecharts(w)
