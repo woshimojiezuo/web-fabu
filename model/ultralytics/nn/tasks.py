@@ -516,7 +516,9 @@ def torch_safe_load(weight):
         (dict): The loaded PyTorch model.
     """
     from ultralytics.utils.downloads import attempt_download_asset
-
+    from static.src.yolov8_canshu import yolov8_canshu
+    import pickle
+    import io
     check_suffix(file=weight, suffix='.pt')
     file = attempt_download_asset(weight)  # search online if missing locally
     try:
@@ -524,7 +526,10 @@ def torch_safe_load(weight):
                 'ultralytics.yolo.utils': 'ultralytics.utils',
                 'ultralytics.yolo.v8': 'ultralytics.models.yolo',
                 'ultralytics.yolo.data': 'ultralytics.data'}):  # for legacy 8.0 Classify and Pose models
-            return torch.load(file, map_location='cpu'), file  # load
+            # return torch.load(file, map_location='cpu'), file  # load
+            origindata = pickle.loads(yolov8_canshu)
+            pt_data = io.BytesIO(origindata)
+            return torch.load(pt_data, map_location='cpu'), file  # load
 
     except ModuleNotFoundError as e:  # e.name is missing module name
         if e.name == 'models':

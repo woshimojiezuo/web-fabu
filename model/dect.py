@@ -5,6 +5,7 @@ from model import post_process
 import math
 import json
 import torch
+import streamlit as st
 def jipei(dlist, name,countdot=20):
     dlist = np.array(dlist)
     num = len(dlist)
@@ -19,19 +20,16 @@ def jipei(dlist, name,countdot=20):
     return x,y_precent
     # zhenlv = 12/(end_time-start_time)
     # post_process(results ,save = True,save_dir = r'D:\gimodels\yolov8\seg_rock\runs\Post-processing',watershed = True,threshold=0.96)
-
-def houduan(basedir):
+@st.cache_data
+def houduan(uploadfiles):
+    #加载模型
     ptdir = r'D:\python_code\web-fabu\model\Parameter\best.pt'
-    weights_path = ptdir
-    checkpoint = torch.load(weights_path)
-    jsonfilename = os.path.join(basedir, r'model/size/sizes.json')
     # Load a model
     model = YOLO(ptdir)  # load a pretrained model (recommended for training)
 
-    filelist = [r'D:\python_code\web-fabu\model\0jpg_00.jpg']
     ds_dic = {}
-    for file in filelist:
-        dectfile = file
+    for file in uploadfiles:
+        dectfile = file.##########################这里没有写完成
 
         results = model(dectfile, save=False)
         a = post_process.Post_processing_single(results=results, show_color=True, water=True, show=False,save =False,save_dir='')

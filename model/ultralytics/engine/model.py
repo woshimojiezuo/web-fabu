@@ -12,7 +12,6 @@ from ultralytics.utils import ASSETS, DEFAULT_CFG_DICT, LOGGER, RANK, callbacks,
 from ultralytics.utils.checks import check_file, check_imgsz, check_pip_update_available, check_yaml
 from ultralytics.utils.downloads import GITHUB_ASSETS_STEMS
 
-
 class Model(nn.Module):
     """
     A base class to unify APIs for all models.
@@ -54,7 +53,7 @@ class Model(nn.Module):
         list(ultralytics.engine.results.Results): The prediction results.
     """
 
-    def __init__(self, model: Union[str, Path] = 'yolov8n.pt', task=None) -> None:
+    def __init__(self,model: Union[str, Path] = 'yolov8n.pt', task=None,) -> None:
         """
         Initializes the YOLO model.
 

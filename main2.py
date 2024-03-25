@@ -5,6 +5,7 @@ from PIL import Image
 from connet.get import get_img
 import util
 from model2.predict import houduan_msba
+from model.dect import houduan
 import mysql.connector
 from mysql.connector import Error
 from auth.siderbar import log_part
@@ -119,11 +120,16 @@ def main():
                 st.markdown('请先添加文件')
     if st.session_state['jincheng'] >= 2:
         with c12_container:
-            datas, colorimgs, caps = houduan_msba(st.session_state['images'])
-            # st.session_state['datas'] = datas
-            # st.session_state['colorimgs'] = colorimgs
-            st.image(colorimgs, caption=caps, width=200)
-            # st.markdown('阶段二')
+            genre = st.radio(
+                "请选择一个识别方法",
+                ["yolov8", "msba-unet"],)
+
+            if genre == 'yolov8':
+                datas, colorimgs, caps = houduan(st.session_state['images'])
+                st.write('You selected comedy.')
+            elif genre == 'msba-unet':
+                datas, colorimgs, caps = houduan_msba(st.session_state['images'])
+                st.image(colorimgs, caption=caps, width=200)
     if st.session_state['jincheng'] >= 3:
         with c21_container:
             hist_datas = util.chart3(datas)
