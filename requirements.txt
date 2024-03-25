@@ -12,3 +12,4 @@ PyOpenGL_accelerate
 opencv-python-headless
 matplotlib
 streamlit-echarts
+yaml
