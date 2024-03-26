@@ -110,7 +110,8 @@ def log_part():
         st.session_state['sb_state'] = True
 
     if not st.session_state['loged']:
-        st.header('请先登录')
+        st.markdown('''# 请先登录
+        ''')
         if st.session_state['sb_state']:
             st.sidebar.title("登录")
             username = st.sidebar.text_input("用户名")
@@ -129,6 +130,7 @@ def log_part():
 
             if button2:
                 st.session_state['sb_state'] = False
+                st.rerun()
         else:
             st.sidebar.title("注册")
             username = st.sidebar.text_input("用户名")
@@ -140,8 +142,10 @@ def log_part():
                 if username and password and register_user(username, password) and jigou == '矿大':
                     st.sidebar.success("注册成功！")
                     st.session_state['sb_state'] = True
+                    st.rerun()
                 else:
                     st.sidebar.error("注册失败")
             if button_signin:
                 st.session_state['sb_state'] = True
+                st.rerun()
 

@@ -61,16 +61,31 @@ def main():
     # st.header('粒子图像识别系统')
     with button_col1:
         if st.button('图 片 载 入'):
-            st.session_state['jincheng'] = 1
+            if st.session_state['images']:
+                st.session_state['jincheng'] = 1
+            else:
+                with c11_container:
+                    st.error("请先添加文件")
     with button_col2:
         if st.button('粒 子 识 别'):
-            st.session_state['jincheng'] = 2
+            if st.session_state['images']:
+                st.session_state['jincheng'] = 2
+            else:
+                with c12_container:
+                    st.error('请先进行：图片载入')
     with button_col3:
         if st.button('识 别 结 果'):
-            st.session_state['jincheng'] = 3
+            if st.session_state['jincheng']==2:
+                st.session_state['jincheng'] = 3
+            else:
+                with c22_container:
+                    st.error('请先进行：粒子识别')
+                with c21_container:
+                    st.error('请先进行：粒子识别')
     with button_col4:
         if st.button('系 统 退 出'):
-            st.session_state['jincheng'] = 4
+            st.session_state.clear()
+            st.rerun()
 
     ###filebar
     with file_container1_1:
@@ -116,10 +131,9 @@ def main():
             if st.session_state['images']:
                 imgs, caps = util.chart1(st.session_state['images'])
                 st.image(imgs, caption=caps, width=200)
-            else:
-                st.markdown('请先添加文件')
     if st.session_state['jincheng'] >= 2:
         with c12_container:
+            print(st.session_state['jincheng'])
             option = st.selectbox(
                 'How would you like to be contacted?',
                 options=("Yolov8", "MSBA-Unet"),
@@ -140,9 +154,9 @@ def main():
         with c22_container:
             for data in datas:
                 util.line_chart(data['等效粒径'],20)
-    if st.session_state['jincheng'] >= 4:
-        st.session_state.clear()
-        st.rerun()
+    # if st.session_state['jincheng'] >= 4:
+    #     st.session_state.clear()
+    #     st.rerun()
 
 st.set_page_config(
         page_title="颗粒识别分析系统",
@@ -159,5 +173,4 @@ st.set_page_config(
 log_part()
 if st.session_state['loged']:
     main()
-
 
