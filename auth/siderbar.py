@@ -110,7 +110,21 @@ def log_part():
         st.session_state['sb_state'] = True
 
     if not st.session_state['loged']:
-        st.markdown('''# 请先登录
+        st.markdown('''
+        # 颗粒识别分析系统
+        _____
+        ## 操作流程
+        ### 依次点击
+        - 添加文件
+        - 图片载入
+        - 粒子识别
+            - 选择模型
+        - 识别结果
+        - 退出登录
+        _____
+        ## 注册
+        授权机构：矿大
+        
         ''')
         if st.session_state['sb_state']:
             st.sidebar.title("登录")
